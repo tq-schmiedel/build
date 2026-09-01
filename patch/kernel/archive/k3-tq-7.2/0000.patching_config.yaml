@@ -4,6 +4,12 @@ config:
   kind: kernel
   type: k3
 
+  # New .dts/.dtsi files are copied from dt/ into arch/arm64/boot/dts/ti/.
+  # auto-patch-dt-makefile adds dtb-$(CONFIG_ARCH_K3) += *.dtb entries automatically
+  # (only for .dts files - .dtsi include-only files are never matched).
+  dts-directories:
+    - { source: "dt", target: "arch/arm64/boot/dts/ti" }
+
   # .dtso overlay files are copied from overlay/ into arch/arm64/boot/dts/ti/overlay/.
   # The overlay/Makefile is also copied, so add_overlay_lines adds
   # "subdir-y := overlay" to the parent Makefile automatically.
